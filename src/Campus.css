@@ -1,0 +1,262 @@
+.campus-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #0a0a1a, #000000, #0a0a1a);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+}
+
+/* Campus Content */
+.campus-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.campus-hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.campus-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.campus-description {
+  color: #9ca3af;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+/* Search Bar */
+.search-container {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: rgba(17, 24, 39, 0.5);
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  color: white;
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-input::placeholder {
+  color: #6b7280;
+}
+
+.search-input:focus {
+  border-color: #7c3aed;
+}
+
+/* Category Filter */
+.category-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 0.5rem 1.25rem;
+  background: rgba(17, 24, 39, 0.5);
+  border: 1px solid #1f2937;
+  border-radius: 8px;
+  color: #9ca3af;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.category-btn:hover {
+  border-color: #7c3aed;
+  color: white;
+}
+
+.category-btn.active {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: white;
+}
+
+/* Tabs */
+.tabs-container {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 1px solid #1f2937;
+  margin: 3rem 0 2rem;
+}
+
+.tab-btn {
+  padding: 0.75rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #9ca3af;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab-btn:hover {
+  color: white;
+}
+
+.tab-btn.active {
+  color: #a78bfa;
+  border-bottom-color: #a78bfa;
+}
+
+/* Courses Grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.course-card {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid #1f2937;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  border-color: #7c3aed;
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.course-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+.course-level {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.level-beginner {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.level-intermediate {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+}
+
+.level-advanced {
+  background: rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+}
+
+.course-instructor {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.course-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.meta-label {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.meta-value {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.course-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.25rem;
+  border-top: 1px solid #1f2937;
+}
+
+.course-price {
+  color: #a78bfa;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.enroll-btn {
+  padding: 0.5rem 1.5rem;
+  background: #7c3aed;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.enroll-btn:hover {
+  background: #6d28d9;
+}
+
+@media (max-width: 1024px) {
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .campus-title {
+    font-size: 2rem;
+  }
+
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-filter {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+}

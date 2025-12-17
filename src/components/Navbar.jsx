@@ -1,7 +1,7 @@
 import "./Navbar.css";
 
 // Navbar Component
-const Navbar = () => {
+const Navbar = ({ onNavigate}) => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -10,10 +10,10 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-menu">
-        <a href="#" className="nav-link">
+        <a href="#home" className="nav-link" onClick={() => onNavigate("home")}>
           Home
         </a>
-        <a href="#" className="nav-link">
+        <a href="#campus" className="nav-link" onClick={() => onNavigate("campus")}>
           Campus
         </a>
         <a href="#" className="nav-link">
