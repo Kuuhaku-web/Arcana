@@ -7,6 +7,7 @@ import Footer from "./components/Footer.jsx";
 const Campus = ({ onNavigate, currentPage }) => {
   const [activeTab, setActiveTab] = useState("courses");
   const [activeCategory, setActiveCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const categories = ["All Categories", "Blockchain", "Smart Contracts", "DeFi", "NFTs", "DAO", "Security"];
 
@@ -92,7 +93,13 @@ const Campus = ({ onNavigate, currentPage }) => {
 
           {/* Search Bar */}
           <div className="search-container">
-            <input type="text" placeholder="Search courses, lecturers, or members..." className="search-input" />
+            <input 
+              type="text" 
+              placeholder="Search courses, lecturers, or members..." 
+              className="search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
 
           {/* Category Filter */}
@@ -121,32 +128,36 @@ const Campus = ({ onNavigate, currentPage }) => {
         {/* Courses Grid */}
         {activeTab === "courses" && (
           <div className="courses-grid">
-            {courses.map((course) => (
-              <div key={course.id} className="course-card">
-                <div className="course-header">
-                  <h3 className="course-title">{course.title}</h3>
-                  <span className={`course-level ${getLevelColor(course.level)}`}>{course.level}</span>
-                </div>
-
-                <p className="course-instructor">{course.instructor}</p>
-
-                <div className="course-meta">
-                  <div className="meta-item">
-                    <span className="meta-label">Category:</span>
-                    <span className="meta-value">{course.category}</span>
+            {courses
+              .filter(course => 
+                course.title.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+              .map((course) => (
+                <div key={course.id} className="course-card">
+                  <div className="course-header">
+                    <h3 className="course-title">{course.title}</h3>
+                    <span className={`course-level ${getLevelColor(course.level)}`}>{course.level}</span>
                   </div>
-                  <div className="meta-item">
-                    <span className="meta-label">Students:</span>
-                    <span className="meta-value">{course.students}</span>
+
+                  <p className="course-instructor">{course.instructor}</p>
+
+                  <div className="course-meta">
+                    <div className="meta-item">
+                      <span className="meta-label">Category:</span>
+                      <span className="meta-value">{course.category}</span>
+                    </div>
+                    <div className="meta-item">
+                      <span className="meta-label">Students:</span>
+                      <span className="meta-value">{course.students}</span>
+                    </div>
+                  </div>
+
+                  <div className="course-footer">
+                    <span className="course-price">{course.price}</span>
+                    <button className="enroll-btn">Enroll</button>
                   </div>
                 </div>
-
-                <div className="course-footer">
-                  <span className="course-price">{course.price}</span>
-                  <button className="enroll-btn">Enroll</button>
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </main>
