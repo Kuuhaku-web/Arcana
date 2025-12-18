@@ -68,6 +68,105 @@ const Campus = ({ onNavigate, currentPage }) => {
     },
   ];
 
+  const lecturers = [
+    {
+      id: 1,
+      name: "Dr. Sarah Chen",
+      specialization: "Blockchain & Cryptography",
+      bio: "PhD in Computer Science from MIT with 10+ years in blockchain research.",
+      rating: 4.9,
+      courses: 3,
+      students: 892,
+    },
+    {
+      id: 2,
+      name: "Prof. Alex Rodriguez",
+      specialization: "Smart Contracts & Solidity",
+      bio: "Former Ethereum core developer. Teaching blockchain since 2015.",
+      rating: 4.8,
+      courses: 5,
+      students: 1204,
+    },
+    {
+      id: 3,
+      name: "Dr. James Park",
+      specialization: "DeFi & Tokenomics",
+      bio: "Founder of multiple DeFi protocols. Expert in protocol design.",
+      rating: 4.7,
+      courses: 4,
+      students: 756,
+    },
+    {
+      id: 4,
+      name: "Emma Thompson",
+      specialization: "NFT & Web3 Design",
+      bio: "NFT artist and developer. Created 6 successful NFT collections.",
+      rating: 4.9,
+      courses: 2,
+      students: 634,
+    },
+    {
+      id: 5,
+      name: "Dr. Michael Zhang",
+      specialization: "DAO Governance",
+      bio: "Political scientist turned blockchain expert. Advises multiple DAOs.",
+      rating: 4.6,
+      courses: 3,
+      students: 512,
+    },
+  ];
+
+  const communityMembers = [
+    {
+      id: 1,
+      name: "Alice Kumar",
+      role: "Active Student",
+      reputation: 245,
+      tags: ["Blockchain", "Smart Contracts"],
+      joined: "Jan 2024",
+    },
+    {
+      id: 2,
+      name: "Marcus Johnson",
+      role: "Mentor",
+      reputation: 512,
+      tags: ["DeFi", "DAO Governance"],
+      joined: "Aug 2023",
+    },
+    {
+      id: 3,
+      name: "Priya Patel",
+      role: "Active Student",
+      reputation: 189,
+      tags: ["NFTs", "Web3 Design"],
+      joined: "Mar 2024",
+    },
+    {
+      id: 4,
+      name: "David Lee",
+      role: "Course Creator",
+      reputation: 678,
+      tags: ["Security", "Advanced Dev"],
+      joined: "Jul 2023",
+    },
+    {
+      id: 5,
+      name: "Sofia Martinez",
+      role: "Active Student",
+      reputation: 156,
+      tags: ["Blockchain", "NFTs"],
+      joined: "Feb 2024",
+    },
+    {
+      id: 6,
+      name: "Raj Patel",
+      role: "Mentor",
+      reputation: 445,
+      tags: ["Smart Contracts", "DeFi"],
+      joined: "Sep 2023",
+    },
+  ];
+
   const getLevelColor = (level) => {
     switch (level) {
       case "Beginner":
@@ -93,13 +192,7 @@ const Campus = ({ onNavigate, currentPage }) => {
 
           {/* Search Bar */}
           <div className="search-container">
-            <input 
-              type="text" 
-              placeholder="Search courses, lecturers, or members..." 
-              className="search-input"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+            <input type="text" placeholder="Search courses, lecturers, or members..." className="search-input" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
           </div>
 
           {/* Category Filter */}
@@ -129,9 +222,7 @@ const Campus = ({ onNavigate, currentPage }) => {
         {activeTab === "courses" && (
           <div className="courses-grid">
             {courses
-              .filter(course => 
-                course.title.toLowerCase().includes(searchQuery.toLowerCase())
-              )
+              .filter((course) => course.title.toLowerCase().includes(searchQuery.toLowerCase()))
               .map((course) => (
                 <div key={course.id} className="course-card">
                   <div className="course-header">
@@ -158,6 +249,67 @@ const Campus = ({ onNavigate, currentPage }) => {
                   </div>
                 </div>
               ))}
+          </div>
+        )}
+
+        {/* Lecturers Grid */}
+        {activeTab === "lecturers" && (
+          <div className="lecturers-grid">
+            {lecturers.map((lecturer) => (
+              <div key={lecturer.id} className="lecturer-card">
+                <h3 className="lecturer-name">{lecturer.name}</h3>
+                <p className="lecturer-specialization">{lecturer.specialization}</p>
+                <p className="lecturer-bio">{lecturer.bio}</p>
+
+                <div className="lecturer-stats">
+                  <div className="stat-row">
+                    <span className="stat-label">Rating:</span>
+                    <span className="stat-values">
+                      <span className="star">⭐</span> {lecturer.rating}
+                    </span>
+                  </div>
+                  <div className="stat-row">
+                    <span className="stat-label">Courses:</span>
+                    <span className="stat-values">{lecturer.courses}</span>
+                  </div>
+                  <div className="stat-row">
+                    <span className="stat-label">Students:</span>
+                    <span className="stat-values">{lecturer.students}</span>
+                  </div>
+                </div>
+
+                <button className="view-courses-btn">View Courses</button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Community Grid */}
+        {activeTab === "community" && (
+          <div className="community-grid">
+            {communityMembers.map((member) => (
+              <div key={member.id} className="community-card">
+                <div className="community-header">
+                  <h3>{member.name}</h3>
+                  <span className={`role ${member.role.toLowerCase().replace(" ", "-")}`}>{member.role}</span>
+                </div>
+
+                <div className="reputation">
+                  <p className="label">Reputation Score</p>
+                  <p className="score">{member.reputation}</p>
+                </div>
+
+                <div className="tags">
+                  {member.tags.map((tag, index) => (
+                    <span key={index} className="tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="joined">Joined {member.joined}</p>
+              </div>
+            ))}
           </div>
         )}
       </main>

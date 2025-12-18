@@ -1,4 +1,4 @@
-:global(html),
+/* :global(html),
 :global(body),
 :global(#root) {
   margin: 0;
@@ -12,7 +12,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
 .app {
   min-height: 100vh;
