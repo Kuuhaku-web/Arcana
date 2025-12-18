@@ -10,31 +10,19 @@ const Navbar = ({ onNavigate, currentPage }) => {
       </div>
 
       <div className="navbar-menu">
-        <a 
-          href="#home" 
-          className={`nav-link ${currentPage === "home" ? "active" : ""}`}
-          onClick={() => onNavigate("home")}
-        >
+        <a href="#home" className={`nav-link ${currentPage === "home" ? "active" : ""}`} onClick={() => onNavigate("home")}>
           Home
         </a>
-        <a 
-          href="#campus" 
-          className={`nav-link ${currentPage === "campus" ? "active" : ""}`}
-          onClick={() => onNavigate("campus")}
-        >
+        <a href="#campus" className={`nav-link ${currentPage === "campus" ? "active" : ""}`} onClick={() => onNavigate("campus")}>
           Campus
         </a>
-        <a href="#dao" className="nav-link" onClick={() => onNavigate("dao")}>
+        <a href="#dao" className={`nav-link ${currentPage === "dao" ? "active" : ""}`} onClick={() => onNavigate("dao")}>
           DAO
         </a>
-        <a href="#" className="nav-link">
+        <a href="#token" className={`nav-link ${currentPage === "token" ? "active" : ""}`} onClick={() => onNavigate("token")}>
           Token
         </a>
-        <a 
-          href="#stake" 
-          className={`nav-link ${currentPage === "stake" ? "active" : ""}`}
-          onClick={() => onNavigate("stake")}
-        >
+        <a href="#stake" className={`nav-link ${currentPage === "stake" ? "active" : ""}`} onClick={() => onNavigate("stake")}>
           Stake
         </a>
       </div>

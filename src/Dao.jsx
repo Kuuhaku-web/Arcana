@@ -77,6 +77,27 @@ const Dao = ({ onNavigate, currentPage }) => {
     },
   ];
 
+  const governanceSteps = [
+    {
+      title: "Community Voting",
+      description: "All ARCANA token holders can vote on proposals. Your voting power is proportional to your staked tokens.",
+      icon: "👥",
+      colorClass: "icon-purple",
+    },
+    {
+      title: "Transparent Voting",
+      description: "All votes are recorded on-chain and visible to the community. No hidden votes or manipulation.",
+      icon: "🗳️", // Icon kotak suara
+      colorClass: "icon-blue",
+    },
+    {
+      title: "Earn Rewards",
+      description: "Voting participants earn rewards in ARCANA tokens. The more you engage, the more you earn.",
+      icon: "📈",
+      colorClass: "icon-indigo",
+    },
+  ];
+
   return (
     <div className="dao-page">
       <Navbar onNavigate={onNavigate} currentPage={currentPage} />
@@ -111,7 +132,7 @@ const Dao = ({ onNavigate, currentPage }) => {
           <div className="section-header">
             <h2 className="section-title">Active Proposals</h2>
           </div>
-          
+
           <div className="proposals-list">
             {proposals.map((proposal) => (
               <div key={proposal.id} className="proposal-card">
@@ -170,6 +191,23 @@ const Dao = ({ onNavigate, currentPage }) => {
                     Quorum reached ( {proposal.quorum.current} / {proposal.quorum.required} required )
                   </span>
                 </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* --- BAGIAN BARU: How DAO Governance Works --- */}
+        <section className="governance-info-section">
+          <h2 className="info-section-title">How DAO Governance Works</h2>
+
+          <div className="info-grid">
+            {governanceSteps.map((step, index) => (
+              <div key={index} className="info-card">
+                <div className={`info-icon-box ${step.colorClass}`}>
+                  <span className="info-icon">{step.icon}</span>
+                </div>
+                <h3 className="info-title">{step.title}</h3>
+                <p className="info-desc">{step.description}</p>
               </div>
             ))}
           </div>

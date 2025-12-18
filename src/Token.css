@@ -1,0 +1,375 @@
+/* Base Layout */
+.token-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #0a0a1a, #000000, #0a0a1a);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+}
+
+.token-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+/* Header Section */
+.token-header {
+  margin-bottom: 60px;
+}
+
+.token-title {
+  font-size: 3rem; /* Ukuran besar untuk judul */
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.token-subtitle {
+  font-size: 1.1rem;
+  color: #8a8f98; /* Warna abu-abu redup */
+  max-width: 650px; /* Membatasi lebar teks agar rapi */
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Stats Section */
+.token-stats-section {
+  width: 100%;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 Kolom sejajar */
+  gap: 24px;
+}
+
+.token-stat-card {
+  background-color: #0f111a; /* Background kartu sedikit lebih terang */
+  border: 1px solid #1f2937; /* Border tipis */
+  border-radius: 12px;
+  padding: 40px 20px; /* Padding atas-bawah besar agar luas */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease;
+}
+
+.token-stat-card:hover {
+  border-color: #374151; /* Efek hover halus */
+}
+
+/* Typography dalam Card */
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.stat-label {
+  color: #9ca3af; /* Abu-abu label */
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* Warna Aksen Text */
+.text-purple {
+  color: #a855f7; /* Ungu Neon */
+}
+
+.text-blue {
+  color: #3b82f6; /* Biru Neon */
+}
+
+/* Responsivitas (Mobile) */
+@media (max-width: 768px) {
+  .token-title {
+    font-size: 2.2rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr; /* Menjadi 1 kolom di HP */
+    gap: 16px;
+  }
+
+  .token-subtitle {
+    max-width: 100%;
+  }
+}
+
+/* --- Ecosystem Section --- */
+.ecosystem-section {
+  margin-top: 100px;
+  margin-bottom: 60px;
+}
+
+.ecosystem-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #ffffff;
+}
+
+.utility-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.utility-card {
+  background-color: #0f111a;
+  border: 1px solid #1f2937;
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  transition: transform 0.2s ease;
+}
+
+.utility-card:hover {
+  border-color: #374151;
+  background-color: #141722;
+}
+
+/* Icon Styling */
+.utility-icon-box {
+  min-width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+
+.purple-gradient {
+  background: linear-gradient(135deg, #a855f7, #6b21a8);
+}
+
+.blue-gradient {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+/* Content Styling */
+.utility-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.utility-card-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.utility-card-desc {
+  color: #9ca3af;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Tags Styling */
+.utility-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.tag {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.purple-tag {
+  background-color: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+}
+
+.blue-tag {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+/* Responsivitas Mobile */
+@media (max-width: 768px) {
+  .utility-card {
+    flex-direction: column;
+    padding: 24px;
+  }
+
+  .utility-icon-box {
+    min-width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+  }
+}
+
+/* --- Global Utilities --- */
+.section-title-center {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #ffffff;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+.text-gray {
+  color: #e5e7eb;
+}
+.text-dim {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+/* --- Token Distribution --- */
+.distribution-section {
+  margin-top: 100px;
+}
+
+.distribution-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.dist-card {
+  background-color: #0f111a;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.card-inner-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+/* Progress Bar Chart */
+.chart-row {
+  margin-bottom: 20px;
+}
+
+.chart-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: #9ca3af;
+}
+
+.bar-bg {
+  width: 100%;
+  height: 8px;
+  background-color: #111827;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* Vesting List */
+.vesting-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid #1f2937;
+}
+
+.vesting-row:last-child {
+  border-bottom: none;
+}
+
+/* --- Why Choose ARCANA --- */
+.why-section {
+  margin-top: 120px;
+}
+
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.reason-card {
+  background-color: #0f111a;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 30px;
+  transition: border-color 0.3s ease;
+}
+
+.reason-card:hover {
+  border-color: #3b82f6;
+}
+
+.reason-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.reason-desc {
+  color: #9ca3af;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* --- CTA Section --- */
+.cta-section {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.cta-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.cta-subtitle {
+  color: #9ca3af;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.cta-btn-gradient {
+  background: linear-gradient(90deg, #a855f7, #3b82f6);
+  color: white;
+  border: none;
+  padding: 16px 36px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.cta-btn-gradient:hover {
+  opacity: 0.9;
+}
+
+/* Responsivitas */
+@media (max-width: 992px) {
+  .distribution-grid,
+  .reasons-grid {
+    grid-template-columns: 1fr;
+  }
+}

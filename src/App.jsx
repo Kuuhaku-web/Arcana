@@ -4,6 +4,7 @@ import Home from "./Home.jsx";
 import Campus from "./Campus.jsx";
 import Stake from "./Stake.jsx";
 import Dao from "./Dao.jsx";
+import Token from "./Token.jsx";
 
 // Main App Component
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
       {currentPage === "campus" && <Campus onNavigate={handleNavigate} currentPage={currentPage} />}
       {currentPage === "stake" && <Stake onNavigate={handleNavigate} currentPage={currentPage} />}
       {currentPage === "dao" && <Dao onNavigate={handleNavigate} currentPage={currentPage} />}
+      {currentPage === "token" && <Token onNavigate={handleNavigate} currentPage={currentPage} />}
     </>
   );
 };
