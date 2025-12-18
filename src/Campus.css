@@ -131,6 +131,9 @@
   border-radius: 1rem;
   padding: 1.5rem;
   transition: transform 0.3s, border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .course-card:hover {
@@ -186,6 +189,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.25rem;
+  flex-grow: 1;
 }
 
 .meta-item {
@@ -211,6 +215,7 @@
   align-items: center;
   padding-top: 1.25rem;
   border-top: 1px solid #1f2937;
+  margin-top: auto;
 }
 
 .course-price {
