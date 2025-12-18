@@ -73,6 +73,7 @@ const Campus = ({ onNavigate, currentPage }) => {
       id: 1,
       name: "Dr. Sarah Chen",
       specialization: "Blockchain & Cryptography",
+      category: "Blockchain",
       bio: "PhD in Computer Science from MIT with 10+ years in blockchain research.",
       rating: 4.9,
       courses: 3,
@@ -82,6 +83,7 @@ const Campus = ({ onNavigate, currentPage }) => {
       id: 2,
       name: "Prof. Alex Rodriguez",
       specialization: "Smart Contracts & Solidity",
+      category: "Smart Contracts",
       bio: "Former Ethereum core developer. Teaching blockchain since 2015.",
       rating: 4.8,
       courses: 5,
@@ -91,6 +93,7 @@ const Campus = ({ onNavigate, currentPage }) => {
       id: 3,
       name: "Dr. James Park",
       specialization: "DeFi & Tokenomics",
+      category: "DeFi",
       bio: "Founder of multiple DeFi protocols. Expert in protocol design.",
       rating: 4.7,
       courses: 4,
@@ -100,6 +103,7 @@ const Campus = ({ onNavigate, currentPage }) => {
       id: 4,
       name: "Emma Thompson",
       specialization: "NFT & Web3 Design",
+      category: "NFTs",
       bio: "NFT artist and developer. Created 6 successful NFT collections.",
       rating: 4.9,
       courses: 2,
@@ -109,6 +113,7 @@ const Campus = ({ onNavigate, currentPage }) => {
       id: 5,
       name: "Dr. Michael Zhang",
       specialization: "DAO Governance",
+      category: "DAO",
       bio: "Political scientist turned blockchain expert. Advises multiple DAOs.",
       rating: 4.6,
       courses: 3,
@@ -198,7 +203,7 @@ const Campus = ({ onNavigate, currentPage }) => {
           {/* Category Filter */}
           <div className="category-filter">
             {categories.map((category, index) => (
-              <button key={index} className={`category-btn ${index === 0 && activeCategory === "all" ? "active" : ""}`} onClick={() => setActiveCategory(category.toLowerCase())}>
+              <button key={index} className={`category-btn ${(index === 0 && activeCategory === "all") || (index !== 0 && category.toLowerCase() === activeCategory) ? "active" : ""}`} onClick={() => setActiveCategory(index === 0 ? "all" : category.toLowerCase())}>
                 {category}
               </button>
             ))}
@@ -222,7 +227,10 @@ const Campus = ({ onNavigate, currentPage }) => {
         {activeTab === "courses" && (
           <div className="courses-grid">
             {courses
-              .filter((course) => course.title.toLowerCase().includes(searchQuery.toLowerCase()))
+              .filter((course) => 
+                course.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                (activeCategory === "all" || course.category.toLowerCase() === activeCategory)
+              )
               .map((course) => (
                 <div key={course.id} className="course-card">
                   <div className="course-header">
@@ -255,61 +263,71 @@ const Campus = ({ onNavigate, currentPage }) => {
         {/* Lecturers Grid */}
         {activeTab === "lecturers" && (
           <div className="lecturers-grid">
-            {lecturers.map((lecturer) => (
-              <div key={lecturer.id} className="lecturer-card">
-                <h3 className="lecturer-name">{lecturer.name}</h3>
-                <p className="lecturer-specialization">{lecturer.specialization}</p>
-                <p className="lecturer-bio">{lecturer.bio}</p>
+            {lecturers
+              .filter((lecturer) => 
+                lecturer.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                (activeCategory === "all" || lecturer.category.toLowerCase() === activeCategory)
+              )
+              .map((lecturer) => (
+                <div key={lecturer.id} className="lecturer-card">
+                  <h3 className="lecturer-name">{lecturer.name}</h3>
+                  <p className="lecturer-specialization">{lecturer.specialization}</p>
+                  <p className="lecturer-bio">{lecturer.bio}</p>
 
-                <div className="lecturer-stats">
-                  <div className="stat-row">
-                    <span className="stat-label">Rating:</span>
-                    <span className="stat-values">
-                      <span className="star">⭐</span> {lecturer.rating}
-                    </span>
+                  <div className="lecturer-stats">
+                    <div className="stat-row">
+                      <span className="stat-label">Rating:</span>
+                      <span className="stat-values">
+                        <span className="star">⭐</span> {lecturer.rating}
+                      </span>
+                    </div>
+                    <div className="stat-row">
+                      <span className="stat-label">Courses:</span>
+                      <span className="stat-values">{lecturer.courses}</span>
+                    </div>
+                    <div className="stat-row">
+                      <span className="stat-label">Students:</span>
+                      <span className="stat-values">{lecturer.students}</span>
+                    </div>
                   </div>
-                  <div className="stat-row">
-                    <span className="stat-label">Courses:</span>
-                    <span className="stat-values">{lecturer.courses}</span>
-                  </div>
-                  <div className="stat-row">
-                    <span className="stat-label">Students:</span>
-                    <span className="stat-values">{lecturer.students}</span>
-                  </div>
+
+                  <button className="view-courses-btn">View Courses</button>
                 </div>
-
-                <button className="view-courses-btn">View Courses</button>
-              </div>
-            ))}
+              ))}
           </div>
         )}
 
         {/* Community Grid */}
         {activeTab === "community" && (
           <div className="community-grid">
-            {communityMembers.map((member) => (
-              <div key={member.id} className="community-card">
-                <div className="community-header">
-                  <h3>{member.name}</h3>
-                  <span className={`role ${member.role.toLowerCase().replace(" ", "-")}`}>{member.role}</span>
-                </div>
+            {communityMembers
+              .filter((member) => 
+                member.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                (activeCategory === "all" || member.tags.some(tag => tag.toLowerCase().startsWith(activeCategory)))
+              )
+              .map((member) => (
+                <div key={member.id} className="community-card">
+                  <div className="community-header">
+                    <h3>{member.name}</h3>
+                    <span className={`role ${member.role.toLowerCase().replace(" ", "-")}`}>{member.role}</span>
+                  </div>
 
-                <div className="reputation">
-                  <p className="label">Reputation Score</p>
-                  <p className="score">{member.reputation}</p>
-                </div>
+                  <div className="reputation">
+                    <p className="label">Reputation Score</p>
+                    <p className="score">{member.reputation}</p>
+                  </div>
 
-                <div className="tags">
-                  {member.tags.map((tag, index) => (
-                    <span key={index} className="tag">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                  <div className="tags">
+                    {member.tags.map((tag, index) => (
+                      <span key={index} className="tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
 
-                <p className="joined">Joined {member.joined}</p>
-              </div>
-            ))}
+                  <p className="joined">Joined {member.joined}</p>
+                </div>
+              ))}
           </div>
         )}
       </main>
