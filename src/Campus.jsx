@@ -4,7 +4,7 @@ import "./Campus.css";
 import Footer from "./components/Footer.jsx";
 
 // Campus Component
-const Campus = ({ onNavigate }) => {
+const Campus = ({ onNavigate, currentPage }) => {
   const [activeTab, setActiveTab] = useState("courses");
   const [activeCategory, setActiveCategory] = useState("all");
 
@@ -82,7 +82,7 @@ const Campus = ({ onNavigate }) => {
 
   return (
     <div className="campus-page">
-      <Navbar onNavigate={onNavigate} />
+      <Navbar onNavigate={onNavigate} currentPage={currentPage} />
 
       <main className="campus-content">
         {/* Hero Section */}

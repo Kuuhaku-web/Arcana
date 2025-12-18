@@ -2,10 +2,10 @@ import "./Home.css";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 
-export default function Home( {onNavigate} ) {
+export default function Home( {onNavigate, currentPage} ) {
   return (
 <div className="app">
-  <Navbar onNavigate={onNavigate} />
+  <Navbar onNavigate={onNavigate} currentPage={currentPage} />
 
   <main className="main-content">
     {/* Hero Section */}
@@ -22,7 +22,7 @@ export default function Home( {onNavigate} ) {
       <p className="hero-description">Arcana is a community-owned campus powered by blockchain, transparent governance, and tokenomics. Access global education, earn through contribution, and shape your learning experience.</p>
 
       <div className="hero-buttons">
-        <button className="btn-primary">Join the Campus</button>
+        <button className="btn-primary" onClick={() => onNavigate("campus")}>Join the Campus</button>
         <button className="btn-secondary">Explore DAO</button>
       </div>
     </div>
@@ -147,7 +147,7 @@ export default function Home( {onNavigate} ) {
       <p className="cta-subtitle">Connect your wallet and start exploring opportunities in our decentralized campus today.</p>
 
       <div className="cta-buttons">
-        <button className="btn-gradient">Stake Tokens Now</button>
+        <button className="btn-gradient" onClick={() => onNavigate("stake")}>Stake Tokens Now</button>
         <button className="btn-outline">Read Documentation</button>
       </div>
     </div>

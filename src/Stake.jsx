@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar.jsx";
 import { useState } from "react";
 
 // Stake Component
-const Stake = ({ onNavigate }) => {
+const Stake = ({ onNavigate, currentPage }) => {
   const [openFaq, setOpenFaq] = useState(null);
 
   const faqs = [
@@ -35,7 +35,7 @@ const Stake = ({ onNavigate }) => {
   };
   return (
     <div className="stake-page">
-      <Navbar onNavigate={onNavigate} />
+      <Navbar onNavigate={onNavigate} currentPage={currentPage} />
 
       <main className="stake-content">
         {/* Hero Section */}

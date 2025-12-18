@@ -15,12 +15,15 @@ const App = () => {
     // Update URL hash manual
     if (page === "home") window.location.hash = "";
     else window.location.hash = page;
+
+    // Scroll to top
+    window.scrollTo(0, 0);
   };
   return (
     <>
-      {currentPage === "home" && <Home onNavigate={handleNavigate} />}
-      {currentPage === "campus" && <Campus onNavigate={handleNavigate} />}
-      {currentPage === "stake" && <Stake onNavigate={handleNavigate} />}
+      {currentPage === "home" && <Home onNavigate={handleNavigate} currentPage={currentPage} />}
+      {currentPage === "campus" && <Campus onNavigate={handleNavigate} currentPage={currentPage} />}
+      {currentPage === "stake" && <Stake onNavigate={handleNavigate} currentPage={currentPage} />}
     </>
   );
 };
