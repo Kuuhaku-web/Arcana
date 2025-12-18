@@ -14,6 +14,13 @@
   gap: 0.5rem;
 }
 
+.logo-image {
+  width: 52px; /* Sesuaikan ukuran lebar */
+  height: 52px; /* Sesuaikan ukuran tinggi */
+  object-fit: contain; /* Menjaga rasio gambar agar tidak gepeng */
+  border-radius: 4px; /* Opsional: jika ingin sudut gambar melengkung */
+}
+
 .logo-icon {
   width: 32px;
   height: 32px;

@@ -1,11 +1,12 @@
 import "./Navbar.css";
+import logoImg from "../assets/logo_arcana.jpg";
 
 // Navbar Component
 const Navbar = ({ onNavigate, currentPage }) => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <div className="logo-icon">A</div>
+        <img src={logoImg} alt="Arcana Logo" className="logo-image" />
         <span className="logo-text">Arcana</span>
       </div>
 
