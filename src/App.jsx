@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import Home from "./Home.jsx";
 import Campus from "./Campus.jsx";
+import Stake from "./Stake.jsx";
 
 // Main App Component
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
     <>
       {currentPage === "home" && <Home onNavigate={handleNavigate} />}
       {currentPage === "campus" && <Campus onNavigate={handleNavigate} />}
+      {currentPage === "stake" && <Stake onNavigate={handleNavigate} />}
     </>
   );
 };

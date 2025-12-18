@@ -1,0 +1,539 @@
+:global(html),
+:global(body),
+:global(#root) {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.stake-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #0a0a1a, #000000, #0a0a1a);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+}
+
+/* Content */
+.stake-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.stake-hero {
+  text-align: left;
+  margin-bottom: 4rem;
+  max-width: 800px;
+}
+
+.stake-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.stake-description {
+  color: #9ca3af;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Why Stake Section */
+.why-stake-section {
+  margin-bottom: 5rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 1rem;
+  margin-bottom: 3rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.stat-card {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid #1f2937;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  text-align: center;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  border-color: #7c3aed;
+}
+
+.stat-value {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.stat-value.purple {
+  color: #a78bfa;
+}
+
+.stat-value.blue {
+  color: #60a5fa;
+}
+
+.stat-value.pink {
+  color: #ec4899;
+}
+
+.stat-label {
+  color: #9ca3af;
+  font-size: 0.9375rem;
+}
+
+/* Tiers Section */
+.tiers-section {
+  margin-bottom: 5rem;
+}
+
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.tier-card {
+  background: rgba(17, 24, 39, 0.8);
+  border: 2px solid #1f2937;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.tier-card:hover {
+  transform: translateY(-5px);
+}
+
+.tier-card.bronze:hover {
+  border-color: #cd7f32;
+}
+
+.tier-card.silver:hover {
+  border-color: #c0c0c0;
+}
+
+.tier-card.gold:hover {
+  border-color: #ffd700;
+}
+
+.tier-card.popular {
+  border-color: #7c3aed;
+}
+
+.popular-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to right, #7c3aed, #2563eb);
+  color: white;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.tier-card.popular {
+  padding-top: 3rem;
+}
+
+.tier-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.bronze-icon {
+  background: rgba(205, 127, 50, 0.2);
+}
+
+.silver-icon {
+  background: rgba(192, 192, 192, 0.2);
+}
+
+.gold-icon {
+  background: rgba(255, 215, 0, 0.2);
+}
+
+.tier-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.bronze .tier-name {
+  color: #cd7f32;
+}
+
+.silver .tier-name {
+  color: #c0c0c0;
+}
+
+.gold .tier-name {
+  color: #ffd700;
+}
+
+.tier-staking {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #1f2937;
+}
+
+.staking-label,
+.reward-label {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.staking-amount {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.staking-usd {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.tier-reward {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #1f2937;
+}
+
+.reward-amount {
+  color: #22c55e;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.reward-apy {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.tier-benefits {
+  margin-bottom: 1.5rem;
+}
+
+.benefits-title {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.benefits-list {
+  list-style: none;
+}
+
+.benefits-list li {
+  color: #9ca3af;
+  font-size: 0.8125rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.benefits-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.tier-stake-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: rgba(124, 58, 237, 0.2);
+  border: 1px solid #7c3aed;
+  border-radius: 8px;
+  color: #a78bfa;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tier-stake-btn:hover {
+  background: rgba(124, 58, 237, 0.3);
+  transform: translateY(-2px);
+}
+
+.tier-stake-btn.gradient {
+  background: linear-gradient(to right, #7c3aed, #2563eb);
+  border: none;
+  color: white;
+}
+
+.tier-stake-btn.gradient:hover {
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+}
+
+/* How Staking Works */
+.how-it-works-section {
+  margin-bottom: 5rem;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.step-card {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid #1f2937;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  border-color: #7c3aed;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  background: #7c3aed;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.step-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.step-description {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Flexible Unstaking */
+.unstaking-section {
+  margin-bottom: 5rem;
+}
+
+.unstaking-card {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid #1f2937;
+  border-radius: 1rem;
+  padding: 2.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.unstaking-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.unstaking-description {
+  color: #9ca3af;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.unstaking-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.unstaking-option {
+  text-align: left;
+}
+
+.option-label {
+  color: #9ca3af;
+  font-size: 0.8125rem;
+  margin-bottom: 0.5rem;
+}
+
+.option-value {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* FAQ Section */
+.faq-section {
+  margin-bottom: 5rem;
+}
+
+.faq-container {
+  max-width: 900px;
+  margin: 2rem auto 0;
+}
+
+.faq-item {
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px solid #1f2937;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.faq-item:hover {
+  border-color: #7c3aed;
+}
+
+.faq-item.active {
+  border-color: #7c3aed;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.faq-question:hover {
+  background: rgba(124, 58, 237, 0.1);
+}
+
+.faq-icon {
+  color: #7c3aed;
+  font-size: 0.75rem;
+  transition: transform 0.3s;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.25rem 1.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+.faq-answer p {
+  color: #9ca3af;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .stats-grid,
+  .tiers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calculator-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps-grid::before {
+    display: none;
+  }
+
+  .unstaking-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .stake-title {
+    font-size: 2rem;
+  }
+
+  .calculator-results {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+}
