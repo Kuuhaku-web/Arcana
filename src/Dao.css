@@ -1,0 +1,313 @@
+/* Base Layout */
+.dao-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #0a0a1a, #000000, #0a0a1a);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+}
+
+.dao-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+/* Header Section */
+.dao-header {
+  margin-bottom: 80px;
+}
+
+.dao-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.dao-subtitle {
+  font-size: 1.1rem;
+  color: #8a8f98;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* Voting Profile Section */
+.voting-profile-section {
+  margin-top: 40px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 32px;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background-color: #0f111a; /* Warna kartu gelap */
+  border: 1px solid #1e212b;
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-card:hover {
+  border-color: #33394b;
+}
+
+.stat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.stat-label {
+  color: #8a8f98;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.stat-icon .dot {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #33394b;
+  border-radius: 3px;
+}
+
+/* Values & Colors */
+.stat-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.stat-subvalue {
+  color: #8a8f98;
+  font-size: 0.85rem;
+}
+
+/* Color Palette dari Gambar */
+.text-purple {
+  color: #a855f7; /* Ungu neon */
+}
+
+.text-blue {
+  color: #3b82f6; /* Biru terang */
+}
+
+.text-indigo {
+  color: #6366f1; /* Indigo */
+}
+
+.text-green {
+  color: #22c55e; /* Hijau neon */
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- Proposals Section --- */
+.proposals-section {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.proposal-card {
+  background-color: #0f111a; /* Sangat gelap, hampir hitam */
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Header: Title & Badge */
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.proposal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-badge-pill {
+  background-color: rgba(59, 130, 246, 0.2); /* Biru transparan */
+  color: #60a5fa; /* Biru terang */
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+}
+
+/* Description */
+.proposal-desc {
+  color: #9ca3af; /* Abu-abu sedang */
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Meta Row (Proposed by, Category, Time) */
+.proposal-meta-row {
+  display: flex;
+  gap: 24px;
+  font-size: 0.9rem;
+  color: #6b7280; /* Abu-abu gelap */
+  align-items: center;
+}
+
+.meta-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time-info {
+  color: #3b82f6; /* Warna biru untuk waktu */
+}
+
+/* Utility Text Colors */
+.text-white {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+.text-green {
+  color: #22c55e;
+}
+.text-red {
+  color: #ef4444;
+}
+.text-blue {
+  color: #3b82f6;
+}
+
+/* Votes Grid */
+.votes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 kolom proporsional */
+  margin-top: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #1f2937;
+}
+
+.vote-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vote-label {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.vote-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Progress Section */
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: #111827; /* Track sangat gelap */
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #22c55e; /* Hijau terang */
+  border-radius: 4px;
+}
+
+/* Footer: Quorum */
+.quorum-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.quorum-icon {
+  font-size: 1rem;
+}
+
+/* Proposal Footer */
+.proposal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #1e212b;
+}
+
+.time-left {
+  color: #8a8f98;
+  font-size: 0.9rem;
+}
+
+.vote-btn {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.vote-btn:hover {
+  opacity: 0.9;
+}
+
+/* Responsivitas */
+@media (max-width: 768px) {
+  .dao-title {
+    font-size: 2.2rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -24,7 +24,7 @@ const Navbar = ({ onNavigate, currentPage }) => {
         >
           Campus
         </a>
-        <a href="#" className="nav-link">
+        <a href="#dao" className="nav-link" onClick={() => onNavigate("dao")}>
           DAO
         </a>
         <a href="#" className="nav-link">

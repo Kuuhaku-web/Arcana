@@ -3,6 +3,7 @@ import { useState } from "react";
 import Home from "./Home.jsx";
 import Campus from "./Campus.jsx";
 import Stake from "./Stake.jsx";
+import Dao from "./Dao.jsx";
 
 // Main App Component
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
       {currentPage === "home" && <Home onNavigate={handleNavigate} currentPage={currentPage} />}
       {currentPage === "campus" && <Campus onNavigate={handleNavigate} currentPage={currentPage} />}
       {currentPage === "stake" && <Stake onNavigate={handleNavigate} currentPage={currentPage} />}
+      {currentPage === "dao" && <Dao onNavigate={handleNavigate} currentPage={currentPage} />}
     </>
   );
 };
