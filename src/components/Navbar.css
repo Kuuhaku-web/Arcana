@@ -17,15 +17,14 @@
 .logo-image {
   width: 52px; /* Sesuaikan ukuran lebar */
   height: 52px; /* Sesuaikan ukuran tinggi */
-  object-fit: contain; /* Menjaga rasio gambar agar tidak gepeng */
-  border-radius: 4px; /* Opsional: jika ingin sudut gambar melengkung */
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 .logo-icon {
   width: 32px;
   height: 32px;
   background: #374151;
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;

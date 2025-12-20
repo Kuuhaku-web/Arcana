@@ -1,4 +1,5 @@
 import "./Footer.css";
+import logoImg from "../assets/logo_arcana.jpg";
 
 export default function Footer() {
   return (
@@ -8,7 +9,7 @@ export default function Footer() {
         <div className="footer-content">
           <div className="footer-col">
             <div className="footer-logo">
-              <div className="logo-icon">A</div>
+              <img src={logoImg} alt="Arcana Logo" className="logo-image" />
               <span className="logo-text">Arcana</span>
             </div>
             <p className="footer-description">Community-owned university powered by blockchain, DAO governance, and tokenomics.</p>
