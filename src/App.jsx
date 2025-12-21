@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Home from "./Home.jsx";
 import Campus from "./Campus.jsx";
 import Stake from "./Stake.jsx";
@@ -10,6 +10,25 @@ import WalletConnect from './components/walletconnect';
 // Main App Component
 const App = () => {
   const [currentPage, setCurrentPage] = useState("home");
+
+  // Read hash on mount and on hash change
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1) || "home";
+      setCurrentPage(hash);
+      window.scrollTo(0, 0);
+    };
+
+    // Set initial page from hash
+    handleHashChange();
+
+    // Listen for hash changes (back/forward buttons)
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
 
   const handleNavigate = (page) => {
     console.log("Navigating to:", page);

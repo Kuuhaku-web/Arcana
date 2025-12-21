@@ -27,24 +27,30 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 3rem 2rem;
+  width: 100%;
 }
 
 .stake-hero {
-  text-align: left;
+  text-align: center;
   margin-bottom: 4rem;
-  max-width: 800px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .stake-title {
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .stake-description {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 1rem;
   line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* Why Stake Section */
@@ -61,7 +67,7 @@
 
 .section-subtitle {
   text-align: center;
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 1rem;
   margin-bottom: 3rem;
 }
@@ -71,6 +77,8 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 2rem;
+  width: 100%;
+  align-items: stretch;
 }
 
 .stat-card {
@@ -80,6 +88,11 @@
   padding: 2.5rem;
   text-align: center;
   transition: transform 0.3s, border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
 }
 
 .stat-card:hover {
@@ -106,7 +119,7 @@
 }
 
 .stat-label {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.9375rem;
 }
 
@@ -120,6 +133,8 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 2rem;
+  width: 100%;
+  align-items: start;
 }
 
 .tier-card {
@@ -129,6 +144,10 @@
   padding: 2rem;
   position: relative;
   transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
 }
 
 .tier-card:hover {
@@ -167,7 +186,7 @@
 }
 
 .tier-card.popular {
-  padding-top: 3rem;
+  padding-top: 3.5rem;
 }
 
 .tier-icon {
@@ -219,7 +238,7 @@
 
 .staking-label,
 .reward-label {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.75rem;
   margin-bottom: 0.5rem;
 }
@@ -232,7 +251,7 @@
 }
 
 .staking-usd {
-  color: #6b7280;
+  color: #ffffff;
   font-size: 0.875rem;
 }
 
@@ -250,12 +269,13 @@
 }
 
 .reward-apy {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.875rem;
 }
 
 .tier-benefits {
   margin-bottom: 1.5rem;
+  flex-grow: 1;
 }
 
 .benefits-title {
@@ -270,7 +290,7 @@
 }
 
 .benefits-list li {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.8125rem;
   margin-bottom: 0.5rem;
   padding-left: 1.25rem;
@@ -282,7 +302,7 @@
   content: "✓";
   position: absolute;
   left: 0;
-  color: #6b7280;
+  color: #ffffff;
   font-size: 0.75rem;
 }
 
@@ -360,10 +380,11 @@
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: #ffffff;
 }
 
 .step-description {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.875rem;
   line-height: 1.6;
 }
@@ -386,10 +407,11 @@
   font-size: 1.75rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .unstaking-description {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.9375rem;
   line-height: 1.7;
   margin-bottom: 2rem;
@@ -406,7 +428,7 @@
 }
 
 .option-label {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.8125rem;
   margin-bottom: 0.5rem;
 }
@@ -480,7 +502,7 @@
 }
 
 .faq-answer p {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.9375rem;
   line-height: 1.7;
   margin: 0;

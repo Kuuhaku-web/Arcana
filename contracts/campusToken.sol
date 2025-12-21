@@ -24,7 +24,7 @@ contract CampusToken is ERC20, Ownable {
      * @dev Constructor - Deploy token dengan supply awal
      * @param initialSupply Jumlah token awal (dalam satuan token, bukan wei)
      */
-    constructor(uint256 initialSupply) ERC20("Campus Token", "CAMP") Ownable(msg.sender) {
+    constructor(uint256 initialSupply) ERC20("Arcana", "ARC") Ownable(msg.sender) {
         // Mint initial supply ke deployer (dalam wei)
         _mint(msg.sender, initialSupply * 10 ** decimals());
     }

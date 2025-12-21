@@ -15,8 +15,8 @@ export default function Home( {onNavigate, currentPage} ) {
       </div>
 
       <h1 className="hero-title">
-        The <span className="text-purple">University of Tomorrow</span>
-        <span className="text-blue">,</span> Built Today
+        <span style={{color: '#ffffff'}}>The</span> <span className="text-purple">University of Tomorrow</span>
+        <span className="text-blue">,</span> <span style={{color: '#ffffff'}}>Built Today</span>
       </h1>
 
       <p className="hero-description">Arcana is a community-owned campus powered by blockchain, transparent governance, and tokenomics. Access global education, earn through contribution, and shape your learning experience.</p>

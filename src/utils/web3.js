@@ -253,3 +253,32 @@ export const switchToLocalNetwork = async () => {
     }
   }
 };
+
+// Add Arcana token to MetaMask
+export const addArcanaTokenToMetaMask = async () => {
+  try {
+    const wasAdded = await window.ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: contractAddress.address,
+          symbol: contractAddress.symbol,
+          decimals: parseInt(contractAddress.decimals),
+          image: 'https://raw.githubusercontent.com/MetaMask/test-dapp/main/logo.png', // Optional: Token logo
+        },
+      },
+    });
+    
+    if (wasAdded) {
+      console.log('Arcana token added to MetaMask');
+      return true;
+    } else {
+      console.log('Token addition was rejected by user');
+      return false;
+    }
+  } catch (error) {
+    console.error('Error adding token to MetaMask:', error);
+    throw error;
+  }
+};

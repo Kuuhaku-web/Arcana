@@ -22,10 +22,11 @@
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .campus-description {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 1rem;
   max-width: 600px;
   margin: 0 auto 2.5rem;
@@ -51,7 +52,7 @@
 }
 
 .search-input::placeholder {
-  color: #6b7280;
+  color: #ffffff;
 }
 
 .search-input:focus {
@@ -72,7 +73,7 @@
   background: rgba(17, 24, 39, 0.5);
   border: 1px solid #1f2937;
   border-radius: 8px;
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.3s;
@@ -102,7 +103,7 @@
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.9375rem;
   cursor: pointer;
   transition: all 0.3s;
@@ -154,6 +155,7 @@
   line-height: 1.4;
   flex: 1;
   margin-right: 0.5rem;
+  color: white;
 }
 
 .course-level {
@@ -180,7 +182,7 @@
 }
 
 .course-instructor {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.875rem;
   margin-bottom: 1.25rem;
 }
@@ -199,7 +201,7 @@
 }
 
 .meta-label {
-  color: #6b7280;
+  color: #ffffff;
   font-size: 0.75rem;
 }
 
@@ -276,7 +278,7 @@
 }
 
 .lecturer-bio {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.875rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
@@ -294,7 +296,7 @@
 }
 
 .stat-label {
-  color: #6b7280;
+  color: #ffffff;
   font-size: 0.875rem;
 }
 
@@ -342,7 +344,7 @@
   background: none;
   border: none;
   padding: 10px 0;
-  color: #aaa;
+  color: #ffffff;
   cursor: pointer;
   font-size: 1rem;
 }
@@ -381,6 +383,7 @@
 
 .community-header h3 {
   font-size: 1.1rem;
+  color: white;
 }
 
 .role {
@@ -411,7 +414,7 @@
 
 .reputation .label {
   font-size: 0.8rem;
-  color: #999;
+  color: #ffffff;
 }
 
 .reputation .score {
@@ -439,7 +442,7 @@
 /* JOINED */
 .joined {
   font-size: 0.75rem;
-  color: #777;
+  color: #ffffff;
 }
 
 @media (max-width: 1024px) {

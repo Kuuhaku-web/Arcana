@@ -8,53 +8,69 @@
 }
 
 .dao-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 80px 24px;
+  overflow: hidden;
 }
 
 /* Header Section */
 .dao-header {
   margin-bottom: 80px;
+  text-align: center;
 }
 
 .dao-title {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 24px;
+  color: white;
 }
 
 .dao-subtitle {
   font-size: 1.1rem;
-  color: #8a8f98;
+  color: #ffffff;
   max-width: 600px;
+  margin: 0 auto;
   line-height: 1.6;
 }
 
 /* Voting Profile Section */
 .voting-profile-section {
   margin-top: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .section-title {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 32px;
+  color: white;
 }
 
 /* Stats Grid */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .stat-card {
-  background-color: #0f111a; /* Warna kartu gelap */
+  background-color: #0f111a;
   border: 1px solid #1e212b;
   border-radius: 12px;
   padding: 24px;
   transition: transform 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-align: center;
 }
 
 .stat-card:hover {
@@ -64,33 +80,36 @@
 .stat-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .stat-label {
-  color: #8a8f98;
-  font-size: 0.9rem;
+  color: #ffffff;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
 .stat-icon .dot {
-  width: 12px;
-  height: 12px;
-  border: 1.5px solid #33394b;
-  border-radius: 3px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #33394b;
+  border-radius: 2px;
 }
 
 /* Values & Colors */
 .stat-value {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 8px;
+  line-height: 1.2;
 }
 
 .stat-subvalue {
-  color: #8a8f98;
-  font-size: 0.85rem;
+  color: #ffffff;
+  font-size: 0.75rem;
+  line-height: 1.5;
 }
 
 /* Color Palette dari Gambar */
@@ -165,7 +184,7 @@
 
 /* Description */
 .proposal-desc {
-  color: #9ca3af; /* Abu-abu sedang */
+  color: #ffffff;
   font-size: 0.95rem;
   margin: 0;
   line-height: 1.5;
@@ -176,7 +195,7 @@
   display: flex;
   gap: 24px;
   font-size: 0.9rem;
-  color: #6b7280; /* Abu-abu gelap */
+  color: #ffffff;
   align-items: center;
 }
 
@@ -222,7 +241,7 @@
 
 .vote-label {
   font-size: 0.85rem;
-  color: #9ca3af;
+  color: #ffffff;
 }
 
 .vote-number {
@@ -242,7 +261,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.85rem;
-  color: #9ca3af;
+  color: #ffffff;
 }
 
 .progress-track {
@@ -282,7 +301,7 @@
 }
 
 .time-left {
-  color: #8a8f98;
+  color: #ffffff;
   font-size: 0.9rem;
 }
 
@@ -302,13 +321,35 @@
 }
 
 /* Responsivitas */
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .dao-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+
+  .info-section-title {
+    font-size: 1.5rem;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .proposal-card {
+    padding: 16px;
   }
 }
 
@@ -388,20 +429,8 @@
 }
 
 .info-desc {
-  color: #9ca3af; /* Abu-abu */
+  color: #ffffff;
   font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
-}
-
-/* Responsiveness */
-@media (max-width: 768px) {
-  .info-section-title {
-    font-size: 1.75rem;
-    margin-bottom: 32px;
-  }
-
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
 }

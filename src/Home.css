@@ -67,7 +67,7 @@
 }
 
 .hero-description {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 1.125rem;
   max-width: 800px;
   margin: 0 auto 3rem;
@@ -98,7 +98,7 @@
 }
 
 .btn-secondary {
-  background: #1f2937;
+  background: #7c3aed;
   color: white;
   padding: 0.75rem 2rem;
   border: none;
@@ -110,7 +110,7 @@
 }
 
 .btn-secondary:hover {
-  background: #374151;
+  background: #6d28d9;
 }
 
 /* Stats Section */
@@ -137,7 +137,7 @@
 }
 
 .stat-label {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.875rem;
 }
 
@@ -154,7 +154,7 @@
 }
 
 .section-subtitle {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 1rem;
   margin-bottom: 3rem;
 }
@@ -201,10 +201,11 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
+  color: #ffffff;
 }
 
 .problem-description {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.875rem;
   line-height: 1.6;
 }
@@ -253,10 +254,11 @@
   font-size: 1.375rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .solution-description {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.9375rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
@@ -305,11 +307,12 @@
 .feature-title {
   font-size: 1.125rem;
   font-weight: 600;
+  color: #ffffff;
   margin-bottom: 0.75rem;
 }
 
 .feature-description {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.875rem;
   line-height: 1.6;
 }
@@ -325,10 +328,11 @@
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .cta-subtitle {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 1rem;
   margin-bottom: 2.5rem;
 }

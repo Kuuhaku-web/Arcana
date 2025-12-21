@@ -1,8 +1,40 @@
 import "./Navbar.css";
 import logoImg from "../assets/logo_arcana.jpg";
+import { useState } from "react";
+import { connectWallet, addArcanaTokenToMetaMask, switchToLocalNetwork, isMetaMaskInstalled } from "../utils/web3";
 
 // Navbar Component
 const Navbar = ({ onNavigate, currentPage }) => {
+  const [account, setAccount] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleConnectWallet = async () => {
+    if (!isMetaMaskInstalled()) {
+      alert('MetaMask is not installed. Please install MetaMask to continue.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Switch to localhost network
+      await switchToLocalNetwork();
+
+      // Connect wallet
+      const { address } = await connectWallet();
+      setAccount(address);
+
+      // Add Arcana token to MetaMask
+      await addArcanaTokenToMetaMask();
+
+      alert(`Wallet connected: ${address}\nArcana token added to MetaMask!`);
+    } catch (error) {
+      console.error('Error connecting wallet:', error);
+      alert('Failed to connect wallet: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -28,9 +60,9 @@ const Navbar = ({ onNavigate, currentPage }) => {
         </a>
       </div>
 
-      <button className="connect-wallet-btn">
+      <button className="connect-wallet-btn" onClick={handleConnectWallet} disabled={loading}>
         <span>💵</span>
-        <span>Connect Wallet</span>
+        <span>{loading ? 'Connecting...' : account ? `${account.slice(0, 6)}...${account.slice(-4)}` : 'Connect Wallet'}</span>
       </button>
     </nav>
   );

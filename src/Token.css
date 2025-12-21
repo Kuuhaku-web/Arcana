@@ -16,6 +16,7 @@
 /* Header Section */
 .token-header {
   margin-bottom: 60px;
+  text-align: center;
 }
 
 .token-title {
@@ -28,10 +29,10 @@
 
 .token-subtitle {
   font-size: 1.1rem;
-  color: #8a8f98; /* Warna abu-abu redup */
-  max-width: 650px; /* Membatasi lebar teks agar rapi */
+  color: #ffffff;
+  max-width: 650px;
   line-height: 1.6;
-  margin: 0;
+  margin: 0 auto;
 }
 
 /* Stats Section */
@@ -69,7 +70,7 @@
 }
 
 .stat-label {
-  color: #9ca3af; /* Abu-abu label */
+  color: #ffffff;
   font-size: 1rem;
   font-weight: 400;
 }
@@ -169,7 +170,7 @@
 }
 
 .utility-card-desc {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 1rem;
   line-height: 1.6;
   margin: 0;
@@ -230,7 +231,7 @@
   color: #e5e7eb;
 }
 .text-dim {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.9rem;
 }
 
@@ -256,6 +257,7 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 30px;
+  color: #ffffff;
 }
 
 /* Progress Bar Chart */
@@ -268,7 +270,7 @@
   justify-content: space-between;
   font-size: 0.95rem;
   margin-bottom: 8px;
-  color: #9ca3af;
+  color: #ffffff;
 }
 
 .bar-bg {
@@ -327,7 +329,7 @@
 }
 
 .reason-desc {
-  color: #9ca3af;
+  color: #ffffff;
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -342,10 +344,11 @@
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 16px;
+  color: #ffffff;
 }
 
 .cta-subtitle {
-  color: #9ca3af;
+  color: #ffffff;
   margin-bottom: 40px;
   font-size: 1.1rem;
 }
