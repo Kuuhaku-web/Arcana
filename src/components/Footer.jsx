@@ -1,7 +1,7 @@
 import "./Footer.css";
 import logoImg from "../assets/logo_arcana.jpg";
 
-export default function Footer() {
+export default function Footer({ onNavigate }) {
   return (
     <>
       {/* Footer */}
@@ -19,16 +19,16 @@ export default function Footer() {
             <h4 className="footer-heading">Platform</h4>
             <ul className="footer-links">
               <li>
-                <a href="#">Home</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("home"); }}>Home</a>
               </li>
               <li>
-                <a href="#">Campus</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("campus"); }}>Campus</a>
               </li>
               <li>
-                <a href="#">DAO Governance</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("dao"); }}>DAO Governance</a>
               </li>
               <li>
-                <a href="#">Token Utility</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("token"); }}>Token Utility</a>
               </li>
             </ul>
           </div>

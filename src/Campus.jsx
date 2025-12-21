@@ -331,7 +331,7 @@ const Campus = ({ onNavigate, currentPage }) => {
           </div>
         )}
       </main>
-      <Footer />
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 };

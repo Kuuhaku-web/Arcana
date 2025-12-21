@@ -252,7 +252,7 @@ const Stake = ({ onNavigate, currentPage }) => {
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 };

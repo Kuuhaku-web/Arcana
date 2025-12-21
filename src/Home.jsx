@@ -23,7 +23,7 @@ export default function Home( {onNavigate, currentPage} ) {
 
       <div className="hero-buttons">
         <button className="btn-primary" onClick={() => onNavigate("campus")}>Join the Campus</button>
-        <button className="btn-secondary">Explore DAO</button>
+        <button className="btn-secondary" onClick={() => onNavigate("dao")}>Explore DAO</button>
       </div>
     </div>
 
@@ -153,7 +153,7 @@ export default function Home( {onNavigate, currentPage} ) {
     </div>
   </main>
 
-  <Footer />
+  <Footer onNavigate={onNavigate} />
 </div>
   )
 }

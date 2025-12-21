@@ -200,7 +200,7 @@ const Token = ({ onNavigate, currentPage }) => {
         </section>
       </main>
 
-      <Footer />
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 };
