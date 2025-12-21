@@ -5,6 +5,7 @@ import Campus from "./Campus.jsx";
 import Stake from "./Stake.jsx";
 import Dao from "./Dao.jsx";
 import Token from "./Token.jsx";
+import WalletConnect from './components/walletconnect';
 
 // Main App Component
 const App = () => {
