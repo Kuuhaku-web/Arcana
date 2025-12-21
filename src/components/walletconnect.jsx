@@ -9,7 +9,8 @@ import {
   awardAcademicPoints,
   getAcademicPoints,
   rewardStudent,
-  switchToLocalNetwork,
+  switchToLocalhostNetwork,
+  addLocalhostNetwork,
   isMetaMaskInstalled
 } from '../utils/web3';
 
@@ -74,8 +75,9 @@ function WalletConnect() {
     setError('');
 
     try {
-      // Switch to localhost network first
-      await switchToLocalNetwork();
+      // Add and switch to localhost network first
+      await addLocalhostNetwork();
+      await switchToLocalhostNetwork();
 
       // Connect wallet
       const { address } = await connectWallet();

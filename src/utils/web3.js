@@ -282,3 +282,58 @@ export const addArcanaTokenToMetaMask = async () => {
     throw error;
   }
 };
+
+// Add Hardhat Localhost Network to MetaMask
+export const addLocalhostNetwork = async () => {
+  if (!isMetaMaskInstalled()) {
+    throw new Error('MetaMask is not installed.');
+  }
+
+  try {
+    const wasAdded = await window.ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [
+        {
+          chainId: '0x7a69', // 31337 in decimal
+          chainName: 'Hardhat Localhost',
+          rpcUrls: ['http://localhost:8545'],
+          nativeCurrency: {
+            name: 'Ethereum',
+            symbol: 'ETH',
+            decimals: 18,
+          },
+          blockExplorerUrls: [],
+        },
+      ],
+    });
+    console.log('Hardhat network added to MetaMask');
+    return wasAdded;
+  } catch (error) {
+    console.error('Error adding Hardhat network:', error);
+    throw error;
+  }
+};
+
+// Switch to Hardhat Network
+export const switchToLocalhostNetwork = async () => {
+  if (!isMetaMaskInstalled()) {
+    throw new Error('MetaMask is not installed.');
+  }
+
+  try {
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: '0x7a69' }], // 31337 in hex
+    });
+    console.log('Switched to Hardhat network');
+  } catch (error) {
+    // If network doesn't exist, add it
+    if (error.code === 4902) {
+      await addLocalhostNetwork();
+      await switchToLocalhostNetwork();
+    } else {
+      console.error('Error switching network:', error);
+      throw error;
+    }
+  }
+};

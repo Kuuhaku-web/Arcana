@@ -434,3 +434,33 @@
   line-height: 1.6;
   margin: 0;
 }
+
+/* Voting Button Section */
+.proposal-vote-button {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #1e212b;
+}
+
+.vote-btn-primary {
+  width: 100%;
+  padding: 12px 24px;
+  background: linear-gradient(to right, #7c3aed, #2563eb);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.vote-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+}
+
+.vote-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

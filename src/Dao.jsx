@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar.jsx"; // Pastikan path benar
 import Footer from "./components/Footer.jsx"; // Pastikan path benar
+import VotingModal from "./components/VotingModal.jsx";
+import QuadraticVotingUtil from "./utils/quadraticVoting.js";
 import "./Dao.css";
 
 const Dao = ({ onNavigate, currentPage }) => {
-  const proposals = [
+  const [showVotingModal, setShowVotingModal] = useState(false);
+  const [selectedProposal, setSelectedProposal] = useState(null);
+  const [votingLoading, setVotingLoading] = useState(false);
+  const [proposals, setProposals] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Contract addresses (from deployment)
+  const DAO_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+  const TOKEN_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+
+  // Dummy proposals untuk fallback (moved here so it's available in useEffect)
+  const dummyProposals = [
     {
       id: 1,
       title: "Increase Community Fund to 50% of Treasury",
@@ -13,6 +26,13 @@ const Dao = ({ onNavigate, currentPage }) => {
       proposer: "Dr. Sarah Chen",
       category: "Treasury",
       timeLeft: "3 days left",
+      createdAt: new Date(),
+      votingDeadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      executed: false,
+      yesVotes: 7850,
+      noVotes: 1200,
+      abstainVotes: 450,
+      totalVotes: 9500,
       votes: {
         yes: "7,850",
         no: "1,200",
@@ -33,6 +53,13 @@ const Dao = ({ onNavigate, currentPage }) => {
       proposer: "Emma Thompson",
       category: "Curriculum",
       timeLeft: "5 days left",
+      createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      votingDeadline: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
+      executed: false,
+      yesVotes: 6200,
+      noVotes: 980,
+      abstainVotes: 320,
+      totalVotes: 7500,
       votes: {
         yes: "6,200",
         no: "980",
@@ -46,6 +73,15 @@ const Dao = ({ onNavigate, currentPage }) => {
       },
     },
   ];
+
+  // Fetch proposals dari smart contract
+  React.useEffect(() => {
+    setLoading(true);
+    // Tampilkan demo proposals langsung
+    setProposals(dummyProposals);
+    setLoading(false);
+  }, []);
+
   const votingStats = [
     {
       label: "Voting Power",
@@ -98,6 +134,54 @@ const Dao = ({ onNavigate, currentPage }) => {
     },
   ];
 
+  // Handle voting
+  const handleOpenVotingModal = (proposal) => {
+    setSelectedProposal(proposal);
+    setShowVotingModal(true);
+  };
+
+  const handleVote = async (proposalId, votes, choice) => {
+    setVotingLoading(true);
+    try {
+      // Get signer from MetaMask
+      if (!window.ethereum) {
+        return {
+          success: false,
+          error: "MetaMask not found. Please install MetaMask."
+        };
+      }
+
+      const { BrowserProvider } = await import("ethers");
+      const provider = new BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+
+      // Cast vote
+      const result = await QuadraticVotingUtil.castVote(
+        DAO_ADDRESS,
+        TOKEN_ADDRESS,
+        signer,
+        proposalId,
+        votes,
+        choice
+      );
+
+      // Jika vote berhasil, just show success message
+      if (result.success) {
+        console.log("Vote berhasil!");
+      }
+
+      return result;
+    } catch (error) {
+      console.error("Vote error:", error);
+      return {
+        success: false,
+        error: error.message || "Failed to cast vote"
+      };
+    } finally {
+      setVotingLoading(false);
+    }
+  };
+
   return (
     <div className="dao-page">
       <Navbar onNavigate={onNavigate} currentPage={currentPage} />
@@ -133,7 +217,16 @@ const Dao = ({ onNavigate, currentPage }) => {
             <h2 className="section-title">Active Proposals</h2>
           </div>
 
-          <div className="proposals-list">
+          {loading ? (
+            <div style={{ textAlign: "center", padding: "40px", color: "#a78bfa" }}>
+              <p>⏳ Loading proposals from blockchain...</p>
+            </div>
+          ) : proposals.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "40px", color: "#a78bfa" }}>
+              <p>📭 No proposals yet. Create one to get started!</p>
+            </div>
+          ) : (
+            <div className="proposals-list">
             {proposals.map((proposal) => (
               <div key={proposal.id} className="proposal-card">
                 {/* Header: Title & Badge */}
@@ -149,27 +242,29 @@ const Dao = ({ onNavigate, currentPage }) => {
                 {/* Meta Info Row */}
                 <div className="proposal-meta-row">
                   <span className="meta-text">
-                    Proposed by <span className="text-white">{proposal.proposer}</span>
+                    Created: <span className="text-white">{proposal.createdAt ? proposal.createdAt.toLocaleDateString() : 'N/A'}</span>
                   </span>
                   <span className="meta-text">
-                    Category: <span className="text-white">{proposal.category}</span>
+                    Deadline: <span className="text-white">{proposal.votingDeadline ? proposal.votingDeadline.toLocaleDateString() : 'N/A'}</span>
                   </span>
-                  <span className="meta-text time-info">🕒 {proposal.timeLeft}</span>
+                  <span className="meta-text time-info">
+                    {proposal.executed ? "✅ Executed" : "🗳️ Active"}
+                  </span>
                 </div>
 
                 {/* Votes Grid */}
                 <div className="votes-grid">
                   <div className="vote-stat">
                     <span className="vote-label">Yes Votes</span>
-                    <span className="vote-number text-green">{proposal.votes.yes}</span>
+                    <span className="vote-number text-green">{proposal.yesVotes.toLocaleString()}</span>
                   </div>
                   <div className="vote-stat">
                     <span className="vote-label">No Votes</span>
-                    <span className="vote-number text-red">{proposal.votes.no}</span>
+                    <span className="vote-number text-red">{proposal.noVotes.toLocaleString()}</span>
                   </div>
                   <div className="vote-stat">
                     <span className="vote-label">Abstain</span>
-                    <span className="vote-number text-white">{proposal.votes.abstain}</span>
+                    <span className="vote-number text-white">{proposal.abstainVotes.toLocaleString()}</span>
                   </div>
                 </div>
 
@@ -177,10 +272,21 @@ const Dao = ({ onNavigate, currentPage }) => {
                 <div className="progress-section">
                   <div className="progress-labels">
                     <span>Voting Progress</span>
-                    <span>{proposal.progress} % in favor</span>
+                    <span>
+                      {proposal.totalVotes > 0 
+                        ? ((proposal.yesVotes / proposal.totalVotes) * 100).toFixed(1) 
+                        : 0}% in favor
+                    </span>
                   </div>
                   <div className="progress-track">
-                    <div className="progress-fill" style={{ width: `${proposal.progress}%` }}></div>
+                    <div 
+                      className="progress-fill" 
+                      style={{ 
+                        width: proposal.totalVotes > 0 
+                          ? ((proposal.yesVotes / proposal.totalVotes) * 100) + '%'
+                          : '0%'
+                      }}
+                    ></div>
                   </div>
                 </div>
 
@@ -188,12 +294,24 @@ const Dao = ({ onNavigate, currentPage }) => {
                 <div className="quorum-footer">
                   <span className="quorum-icon">✅</span>
                   <span className="quorum-text text-green">
-                    Quorum reached ( {proposal.quorum.current} / {proposal.quorum.required} required )
+                    Total Votes: {proposal.totalVotes.toLocaleString()}
                   </span>
+                </div>
+
+                {/* Vote Button */}
+                <div className="proposal-vote-button">
+                  <button
+                    className="vote-btn-primary"
+                    onClick={() => handleOpenVotingModal(proposal)}
+                    disabled={votingLoading}
+                  >
+                    {votingLoading ? "⏳ Processing..." : "🗳️ Cast Your Vote"}
+                  </button>
                 </div>
               </div>
             ))}
-          </div>
+            </div>
+          )}
         </section>
 
         {/* --- BAGIAN BARU: How DAO Governance Works --- */}
@@ -213,6 +331,16 @@ const Dao = ({ onNavigate, currentPage }) => {
           </div>
         </section>
       </main>
+
+      {/* Voting Modal */}
+      {showVotingModal && selectedProposal && (
+        <VotingModal
+          proposal={selectedProposal}
+          onVote={handleVote}
+          onClose={() => setShowVotingModal(false)}
+          voteCostCalculator={QuadraticVotingUtil.calculateVoteCost}
+        />
+      )}
 
       <Footer onNavigate={onNavigate} />
     </div>
