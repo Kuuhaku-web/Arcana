@@ -20,14 +20,17 @@ const VotingModal = ({ proposal, onVote, onClose, voteCostCalculator }) => {
 
     try {
       const result = await onVote(proposal.id, votes, choice);
-      if (result.success) {
-        setMessage(`✅ ${result.message}`);
-        setTimeout(onClose, 2000);
-      } else {
+      if (result && result.success) {
+        setMessage(`✅ ${result.message || 'Vote cast successfully!'}`);
+        // Modal will auto-close from parent component
+      } else if (result && result.error) {
         setMessage(`❌ ${result.error}`);
+      } else {
+        setMessage(`❌ Vote failed. Please try again.`);
       }
     } catch (error) {
-      setMessage(`❌ Error: ${error.message}`);
+      console.error("Vote error:", error);
+      setMessage(`❌ Error: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }

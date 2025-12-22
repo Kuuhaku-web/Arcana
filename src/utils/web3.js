@@ -1,10 +1,56 @@
 import { ethers } from 'ethers';
 import CampusTokenABI from '../contracts/CampusToken.json';
+import ArcanaDAOABI from '../contracts/ArcanaDAO.json';
 import contractAddress from '../contracts/contract-address.json';
 
 // Check if MetaMask is installed
 export const isMetaMaskInstalled = () => {
   return typeof window !== 'undefined' && typeof window.ethereum !== 'undefined';
+};
+
+// Switch to Sepolia network
+export const switchToSepolia = async () => {
+  if (!isMetaMaskInstalled()) {
+    throw new Error('MetaMask is not installed');
+  }
+
+  try {
+    // Try to switch to Sepolia (chainId: 0xaa36a7 = 11155111)
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: '0xaa36a7' }]
+    });
+    console.log('Switched to Sepolia network');
+  } catch (switchError) {
+    // This error code indicates that the chain has not been added to MetaMask
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainId: '0xaa36a7',
+              chainName: 'Sepolia',
+              rpcUrls: ['https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
+              blockExplorerUrls: ['https://sepolia.etherscan.io'],
+              nativeCurrency: {
+                name: 'Ethereum',
+                symbol: 'ETH',
+                decimals: 18
+              }
+            }
+          ]
+        });
+        console.log('Sepolia network added and switched');
+      } catch (addError) {
+        console.error('Failed to add Sepolia network:', addError);
+        throw addError;
+      }
+    } else {
+      console.error('Failed to switch to Sepolia:', switchError);
+      throw switchError;
+    }
+  }
 };
 
 // Connect to MetaMask
@@ -14,6 +60,9 @@ export const connectWallet = async () => {
   }
 
   try {
+    // Switch to Sepolia first
+    await switchToSepolia();
+
     // Request account access
     const accounts = await window.ethereum.request({
       method: 'eth_requestAccounts'
@@ -24,7 +73,14 @@ export const connectWallet = async () => {
     const signer = await provider.getSigner();
     const address = await signer.getAddress();
 
+    // Verify network
+    const network = await provider.getNetwork();
+    if (network.chainId !== 11155111n) {
+      throw new Error(`Wrong network! Connected to chainId ${network.chainId}, expected 11155111 (Sepolia)`);
+    }
+
     console.log('Connected wallet:', address);
+    console.log('Network:', network.name);
 
     return {
       provider,
@@ -43,13 +99,29 @@ export const getContract = async () => {
   try {
     const { signer } = await connectWallet();
     const contract = new ethers.Contract(
-      contractAddress.address,
+      contractAddress.token,
       CampusTokenABI.abi,
       signer
     );
     return contract;
   } catch (error) {
     console.error('Error getting contract:', error);
+    throw error;
+  }
+};
+
+// Get DAO contract instance
+export const getDAOContract = async () => {
+  try {
+    const { signer } = await connectWallet();
+    const contract = new ethers.Contract(
+      contractAddress.dao,
+      ArcanaDAOABI.abi,
+      signer
+    );
+    return contract;
+  } catch (error) {
+    console.error('Error getting DAO contract:', error);
     throw error;
   }
 };
@@ -257,15 +329,19 @@ export const switchToLocalNetwork = async () => {
 // Add Arcana token to MetaMask
 export const addArcanaTokenToMetaMask = async () => {
   try {
+    if (!contractAddress.token) {
+      throw new Error('Token address not configured');
+    }
+
     const wasAdded = await window.ethereum.request({
       method: 'wallet_watchAsset',
       params: {
         type: 'ERC20',
         options: {
-          address: contractAddress.address,
+          address: contractAddress.token,
           symbol: contractAddress.symbol,
           decimals: parseInt(contractAddress.decimals),
-          image: 'https://raw.githubusercontent.com/MetaMask/test-dapp/main/logo.png', // Optional: Token logo
+          image: 'https://raw.githubusercontent.com/MetaMask/test-dapp/main/logo.png',
         },
       },
     });

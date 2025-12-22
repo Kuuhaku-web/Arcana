@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import Navbar from "./components/Navbar.jsx"; // Pastikan path benar
-import Footer from "./components/Footer.jsx"; // Pastikan path benar
+import { ethers } from "ethers";
+import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 import VotingModal from "./components/VotingModal.jsx";
 import QuadraticVotingUtil from "./utils/quadraticVoting.js";
+import ArcanaDAOABI from "./contracts/ArcanaDAO.json";
+import contractAddress from "./contracts/contract-address.json";
 import "./Dao.css";
 
 const Dao = ({ onNavigate, currentPage }) => {
@@ -13,8 +16,8 @@ const Dao = ({ onNavigate, currentPage }) => {
   const [loading, setLoading] = useState(true);
 
   // Contract addresses (from deployment)
-  const DAO_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
-  const TOKEN_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  const DAO_ADDRESS = contractAddress.dao;
+  const TOKEN_ADDRESS = contractAddress.token;
 
   // Dummy proposals untuk fallback (moved here so it's available in useEffect)
   const dummyProposals = [
@@ -76,11 +79,88 @@ const Dao = ({ onNavigate, currentPage }) => {
 
   // Fetch proposals dari smart contract
   React.useEffect(() => {
-    setLoading(true);
-    // Tampilkan demo proposals langsung
-    setProposals(dummyProposals);
-    setLoading(false);
-  }, []);
+    const fetchProposals = async () => {
+      try {
+        setLoading(true);
+        
+        if (!window.ethereum) {
+          console.log("MetaMask not connected, using dummy proposals");
+          setProposals(dummyProposals);
+          return;
+        }
+
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const daoContract = new ethers.Contract(
+          DAO_ADDRESS,
+          ArcanaDAOABI.abi,
+          provider
+        );
+
+        // Get total proposals
+        const totalProposals = await daoContract.getTotalProposals();
+        console.log("Total proposals:", totalProposals.toString());
+
+        if (totalProposals === 0n) {
+          console.log("No proposals found, using dummy proposals");
+          setProposals(dummyProposals);
+          return;
+        }
+
+        const proposalsData = [];
+        for (let i = 1n; i <= totalProposals; i++) {
+          try {
+            const proposal = await daoContract.getProposal(i);
+            
+            const createdAt = new Date(Number(proposal.createdAt) * 1000);
+            const votingDeadline = new Date(Number(proposal.votingDeadline) * 1000);
+            const now = new Date();
+            const timeLeft = votingDeadline > now ? 
+              Math.ceil((votingDeadline - now) / (1000 * 60 * 60 * 24)) + " days left" : 
+              "Ended";
+
+            const totalVotes = Number(proposal.yesVotes) + Number(proposal.noVotes) + Number(proposal.abstainVotes);
+            const progress = totalVotes > 0 ? (Number(proposal.yesVotes) / totalVotes * 100).toFixed(1) : 0;
+
+            proposalsData.push({
+              id: Number(i),
+              title: proposal.title,
+              description: proposal.description,
+              status: proposal.executed ? "Executed" : votingDeadline > now ? "Active" : "Closed",
+              createdAt,
+              votingDeadline,
+              executed: proposal.executed,
+              yesVotes: Number(proposal.yesVotes),
+              noVotes: Number(proposal.noVotes),
+              abstainVotes: Number(proposal.abstainVotes),
+              totalVotes,
+              votes: {
+                yes: Number(proposal.yesVotes).toLocaleString(),
+                no: Number(proposal.noVotes).toLocaleString(),
+                abstain: Number(proposal.abstainVotes).toLocaleString(),
+              },
+              progress,
+              timeLeft,
+            });
+          } catch (err) {
+            console.error(`Error fetching proposal ${i}:`, err);
+          }
+        }
+
+        if (proposalsData.length > 0) {
+          setProposals(proposalsData);
+        } else {
+          setProposals(dummyProposals);
+        }
+      } catch (error) {
+        console.error("Error fetching proposals:", error);
+        setProposals(dummyProposals);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProposals();
+  }, [DAO_ADDRESS]);
 
   const votingStats = [
     {
@@ -165,9 +245,14 @@ const Dao = ({ onNavigate, currentPage }) => {
         choice
       );
 
-      // Jika vote berhasil, just show success message
-      if (result.success) {
-        console.log("Vote berhasil!");
+      // Jika vote berhasil, close modal immediately
+      if (result && result.success) {
+        console.log("✅ Vote berhasil!");
+        setShowVotingModal(false);
+        // Show success message after modal closes
+        setTimeout(() => {
+          alert(`✅ Vote Successful!\n\nYou voted ${votes} vote(s)\nCost: ${votes * votes} ARC\n\nTransaction confirmed on Sepolia!`);
+        }, 500);
       }
 
       return result;

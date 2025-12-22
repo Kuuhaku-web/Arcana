@@ -1,15 +1,10 @@
 import { ethers } from "ethers";
 import ArcanaDAOABI from "../contracts/ArcanaDAO.json";
+import CampusTokenABI from "../contracts/CampusToken.json";
+import contractAddress from "../contracts/contract-address.json";
 
-// Simple ERC20 ABI untuk token functions yang penting
-const TOKEN_ABI = [
-  "function balanceOf(address account) view returns (uint256)",
-  "function approve(address spender, uint256 amount) returns (bool)",
-  "function allowance(address owner, address spender) view returns (uint256)",
-  "function transferFrom(address from, address to, uint256 amount) returns (bool)"
-];
-
-// Extract DAO ABI
+// Use full ABI from contract
+const TOKEN_ABI = CampusTokenABI.abi;
 const DAO_ABI = ArcanaDAOABI.abi;
 
 export const QuadraticVotingUtil = {
@@ -46,53 +41,91 @@ export const QuadraticVotingUtil = {
    */
   castVote: async (daoAddress, tokenAddress, signer, proposalId, votes, choice) => {
     try {
+      // Validate and use correct addresses from config
+      const finalDaoAddress = contractAddress.dao || daoAddress;
+      const finalTokenAddress = contractAddress.token || tokenAddress;
+
       console.log("🔄 Starting vote process...");
-      console.log(`  DAO: ${daoAddress}`);
-      console.log(`  Token: ${tokenAddress}`);
+      console.log(`  DAO: ${finalDaoAddress}`);
+      console.log(`  Token: ${finalTokenAddress}`);
       console.log(`  Proposal: ${proposalId}, Votes: ${votes}, Choice: ${choice}`);
 
-      const daoContract = new ethers.Contract(daoAddress, DAO_ABI, signer);
-      const tokenContract = new ethers.Contract(tokenAddress, TOKEN_ABI, signer);
+      const daoContract = new ethers.Contract(finalDaoAddress, DAO_ABI, signer);
+      const tokenContract = new ethers.Contract(finalTokenAddress, TOKEN_ABI, signer);
 
-      // Calculate cost
+      // Calculate cost (this is already in token units: 1^2=1, 2^2=4, etc)
       const voteCost = QuadraticVotingUtil.calculateVoteCost(votes);
+      // Convert to wei format for token decimals (tokens have 18 decimals)
       const voteCostWei = ethers.parseEther(voteCost.toString());
-      console.log(`  Vote Cost: ${voteCost} ARC (${voteCostWei} wei)`);
+      console.log(`  Vote Cost: ${voteCost} tokens = ${ethers.formatEther(voteCostWei)} ARC`);
 
       // Check balance
       const balance = await tokenContract.balanceOf(await signer.getAddress());
       console.log(`  Balance: ${ethers.formatEther(balance)} ARC`);
       if (balance < voteCostWei) {
-        throw new Error(`Insufficient balance. Need ${voteCost} ARC, have ${ethers.formatEther(balance)} ARC`);
+        throw new Error(`Insufficient balance. Need ${voteCost} tokens (${ethers.formatEther(voteCostWei)} ARC), have ${ethers.formatEther(balance)} ARC`);
       }
 
-      // Approve tokens before voting
-      // Approve max possible cost (100 votes = 10,000 ARC)
-      console.log("  ✏️ Setting up token approval...");
-      try {
-        const approveAmount = ethers.parseEther("10000"); // Max vote cost: 100^2
-        const approveTx = await tokenContract.approve(daoAddress, approveAmount);
-        console.log(`  Approve TX: ${approveTx.hash}`);
-        await approveTx.wait();
-        console.log(`  ✅ Approved 10,000 ARC`);
-      } catch (approveError) {
-        console.error("  ❌ Approval Error:", approveError.message);
-        throw new Error(`Token approval failed: ${approveError.message}`);
+      // Check current allowance before approving
+      console.log("  ✏️ Checking token allowance...");
+      const userAddress = await signer.getAddress();
+      const currentAllowance = await tokenContract.allowance(userAddress, finalDaoAddress);
+      console.log(`  Current allowance: ${ethers.formatEther(currentAllowance)} ARC`);
+      
+      // Only approve exact amount needed (no extra margin)
+      const approveAmount = voteCostWei; // Exact amount only
+      
+      if (currentAllowance < approveAmount) {
+        console.log("  ✏️ Setting up token approval...");
+        try {
+          console.log(`  Requesting approval for ${ethers.formatEther(approveAmount)} ARC...`);
+          
+          const approveTx = await tokenContract.approve(finalDaoAddress, approveAmount);
+          console.log(`  Approve TX: ${approveTx.hash}`);
+          const approveReceipt = await approveTx.wait();
+          console.log(`  ✅ Approved!`);
+          
+          if (!approveReceipt || approveReceipt.status !== 1) {
+            throw new Error("Approval transaction failed");
+          }
+        } catch (approveError) {
+          console.error("  ❌ Approval Error:", approveError);
+          throw new Error(`Token approval failed: ${approveError.message || approveError.reason || 'Unknown error'}`);
+        }
+      } else {
+        console.log("  ✅ Allowance already sufficient, skipping approval");
       }
 
       // Cast vote
-      console.log(`  🗳️ Casting ${votes} votes on proposal ${proposalId}...`);
-      const voteTx = await daoContract.vote(proposalId, votes, choice);
-      console.log(`  Vote TX: ${voteTx.hash}`);
-      const receipt = await voteTx.wait();
-      console.log(`  ✅ Vote confirmed in block ${receipt.blockNumber}`);
-
-      return {
-        success: true,
-        txHash: voteTx.hash,
-        voteCost: voteCost,
-        message: `Vote cast successfully! Cost: ${voteCost} ARC`
-      };
+      console.log(`  🗳️ Casting ${votes} votes on proposal ${proposalId} (choice: ${choice})...`);
+      let voteTx = null;
+      try {
+        voteTx = await daoContract.vote(BigInt(proposalId), BigInt(votes), BigInt(choice));
+        console.log(`  Vote TX: ${voteTx.hash}`);
+        const receipt = await voteTx.wait();
+        if (!receipt || receipt.status !== 1) {
+          throw new Error("Vote transaction failed");
+        }
+        console.log(`  ✅ Vote confirmed in block ${receipt.blockNumber}`);
+        
+        return {
+          success: true,
+          txHash: voteTx.hash,
+          voteCost: voteCost,
+          message: `Vote cast successfully! Cost: ${voteCost} ARC`
+        };
+      } catch (voteError) {
+        console.error("  ❌ Vote Error:", voteError);
+        // Try to extract error message
+        let errorMsg = voteError.message || "Unknown error";
+        if (voteError.reason) {
+          errorMsg = voteError.reason;
+        }
+        if (voteError.data) {
+          errorMsg = `Transaction reverted: ${voteError.data}`;
+        }
+        throw new Error(`Vote failed: ${errorMsg}`);
+      }
     } catch (error) {
       console.error("❌ Vote Error:", error);
       return {
